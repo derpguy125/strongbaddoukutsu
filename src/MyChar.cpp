@@ -39,14 +39,15 @@ void InitMyChar(void)
 	gMC.view.front = 8 * 0x200;
 	gMC.view.bottom = 8 * 0x200;
 
-	gMC.hit.back = 5 * 0x200;
+	gMC.hit.back = 4 * 0x200;
 	gMC.hit.top = 8 * 0x200;
-	gMC.hit.front = 5 * 0x200;
+	gMC.hit.front = 4 * 0x200;
 	gMC.hit.bottom = 8 * 0x200;
 
 	gMC.life = 3;
 	gMC.max_life = 3;
 	gMC.unit = 0;
+	cion = 0;
 
 	// This is initialized with the values the game uses in vanilla
 	gMC.physics_normal.max_dash = 0x32C;

@@ -44,19 +44,16 @@ ARMS_LEVEL gArmsLevelTable[14] =
 	{{40, 60, 200}}
 };
 
-void AddExpMyChar(int x)
+void AddExpMyChar(int x) // code stolen from raichu's RECSBR
 {
-	int lv = gArmsData[gSelectedArms].level - 1;
+	/*int lv = gArmsData[gSelectedArms].level - 1;
 	int arms_code = gArmsData[gSelectedArms].code;
-
 	gArmsData[gSelectedArms].exp += x;
-
 	if (lv == 2)
 	{
 		if (gArmsData[gSelectedArms].exp >= gArmsLevelTable[arms_code].exp[lv])
 		{
 			gArmsData[gSelectedArms].exp = gArmsLevelTable[arms_code].exp[lv];
-
 			if (gMC.equip & EQUIP_WHIMSICAL_STAR)
 			{
 				if (gMC.star < 3)
@@ -72,24 +69,34 @@ void AddExpMyChar(int x)
 			{
 				++gArmsData[gSelectedArms].level;
 				gArmsData[gSelectedArms].exp = 0;
-
 				if (gArmsData[gSelectedArms].code != 13)
 				{
 					PlaySoundObject(27, SOUND_MODE_PLAY);
-					SetCaret(gMC.x, gMC.y, CARET_LEVEL_UP, DIR_LEFT);
+					SetCaret(gMC.x, gMC.y, 10, 0);
 				}
 			}
 		}
+		if (gArmsData[gSelectedArms].code != 13)
+		{
+			gMC.exp_count += x;
+			gMC.exp_wait = 30;
+		}
+		else
+		{
+			gMC.exp_wait = 10;
+			gArmsData[gSelectedArms].level = 1;
+			gArmsData[gSelectedArms].exp = 0;
+		}
+	}*/
+	cion += x;
+	if (x == 1) {
+		SetCaret(gMC.x, gMC.y, 21, 0);
 	}
-
-	if (gArmsData[gSelectedArms].code != 13)
-	{
-		gMC.exp_count += x;
-		gMC.exp_wait = 30;
+	else if (x == 3) {
+		SetCaret(gMC.x, gMC.y, 22, 0);
 	}
-	else
-	{
-		gMC.exp_wait = 10;
+	else if (x == 8) {
+		SetCaret(gMC.x, gMC.y, 23, 0);
 	}
 }
 
@@ -379,6 +386,13 @@ void PutMyLife(BOOL flash)
 	PutBitmap3(&grcGame, PixelToScreenCoord(40), PixelToScreenCoord(40), &rcBr, SURFACE_ID_TEXT_BOX);
 	PutBitmap3(&grcGame, PixelToScreenCoord(40), PixelToScreenCoord(40), &rcLife, SURFACE_ID_TEXT_BOX);
 	PutNumber4(8, 40, gMC.lifeBr, FALSE);
+}
+
+void PutCion()
+{
+	RECT rcCion = {208, 112, 226, 118};
+	PutBitmap3(&grcGame, PixelToScreenCoord(51), PixelToScreenCoord(218), &rcCion, SURFACE_ID_TEXT_BOX);
+	PutNumber4(17, 217, cion, FALSE);
 }
 
 void PutMyAir(int x, int y)
