@@ -307,8 +307,8 @@ static int ModeOpening(void)
 static int ModeTitle(void)
 {
 	// Set rects
-	RECT rcTitle = {0, 0, 144, 40};
-	RECT rcPixel = {0, 0, 160, 16};
+	RECT rcTitle = {0, 0, 320, 240};
+	RECT rcPixel = {0, 0, 320, 16};
 	RECT rcNew = {144, 0, 192, 16};
 	RECT rcContinue = {144, 16, 192, 32};
 
@@ -382,28 +382,7 @@ static int ModeTitle(void)
 	else
 		bContinue = FALSE;
 
-	// Set character
-	time_counter = LoadTimeCounter();
-
-	if (time_counter && time_counter < 6 * 60 * (gb60fps ? 60 : 50))	// 6 minutes
-		char_type = 1;
-	if (time_counter && time_counter < 5 * 60 * (gb60fps ? 60 : 50))	// 5 minutes
-		char_type = 2;
-	if (time_counter && time_counter < 4 * 60 * (gb60fps ? 60 : 50))	// 4 minutes
-		char_type = 3;
-	if (time_counter && time_counter < 3 * 60 * (gb60fps ? 60 : 50))	// 3 minutes
-		char_type = 4;
-
-	// Set music to character's specific music
-	if (char_type == 1)
-		ChangeMusic(MUS_RUNNING_HELL);
-	else if (char_type == 2)
-		ChangeMusic(MUS_TOROKOS_THEME);
-	else if (char_type == 3)
-		ChangeMusic(MUS_WHITE);
-	else if (char_type == 4)
-		ChangeMusic(MUS_SAFETY);
-	else
+	
 		ChangeMusic(MUS_CAVE_STORY);
 
 	// Reset cliprect, flags, and give the player the Nikumaru counter
@@ -495,10 +474,9 @@ static int ModeTitle(void)
 		PutNumber4((WINDOW_WIDTH / 2) + 28, WINDOW_HEIGHT - 24, v4, FALSE);
 
 		// Draw main title
-		PutBitmap3(&grcGame, PixelToScreenCoord((WINDOW_WIDTH / 2) - 72), PixelToScreenCoord(40), &rcTitle, SURFACE_ID_TITLE);
-		PutBitmap3(&grcGame, PixelToScreenCoord((WINDOW_WIDTH / 2) - 24), PixelToScreenCoord((WINDOW_HEIGHT / 2) + 8), &rcNew, SURFACE_ID_TITLE);
-		PutBitmap3(&grcGame, PixelToScreenCoord((WINDOW_WIDTH / 2) - 24), PixelToScreenCoord((WINDOW_HEIGHT / 2) + 28), &rcContinue, SURFACE_ID_TITLE);
-		PutBitmap3(&grcGame, PixelToScreenCoord((WINDOW_WIDTH / 2) - 80), PixelToScreenCoord(WINDOW_HEIGHT - 48), &rcPixel, SURFACE_ID_PIXEL);
+		PutBitmap3(&grcGame, PixelToScreenCoord((WINDOW_WIDTH / 2) - 160), PixelToScreenCoord(0), &rcTitle, SURFACE_ID_TITLE);
+		// this is where new game drawing was
+		PutBitmap3(&grcGame, PixelToScreenCoord((WINDOW_WIDTH / 2) - 160), PixelToScreenCoord(WINDOW_HEIGHT - 48), &rcPixel, SURFACE_ID_PIXEL);
 
 		// Draw character cursor
 		switch (char_type)
@@ -506,22 +484,6 @@ static int ModeTitle(void)
 			case 0:
 				char_rc = rcMyChar[anime / 10 % 4];
 				char_surf = SURFACE_ID_MY_CHAR;
-				break;
-			case 1:
-				char_rc = rcCurly[anime / 10 % 4];
-				char_surf = SURFACE_ID_NPC_REGU;
-				break;
-			case 2:
-				char_rc = rcToroko[anime / 10 % 4];
-				char_surf = SURFACE_ID_NPC_REGU;
-				break;
-			case 3:
-				char_rc = rcKing[anime / 10 % 4];
-				char_surf = SURFACE_ID_NPC_REGU;
-				break;
-			case 4:
-				char_rc = rcSu[anime / 10 % 4];
-				char_surf = SURFACE_ID_NPC_REGU;
 				break;
 		}
 
@@ -823,7 +785,7 @@ BOOL Game(void)
 	InitMapData2();
 	InitCreditScript();
 
-	mode = 1;
+	mode = 2;
 	while (mode)
 	{
 		if (mode == 1)

@@ -48,9 +48,9 @@ static BOOL bActive = TRUE;
 static BOOL bFPS = FALSE;
 
 #ifdef JAPANESE
-static const char* const lpWindowName = "洞窟物語";	// "Cave Story"
+static const char* const lpWindowName = "魅力的な人のためのSTRONG BADのクールな洞窟物語";	// "Cave Story"
 #else
-static const char* const lpWindowName = "Cave Story ~ Doukutsu Monogatari";
+static const char* const lpWindowName = "Strong Bad's Cool Cave Story for Attractive People";
 #endif
 
 static void DragAndDropCallback(const char *path)
