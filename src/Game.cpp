@@ -383,7 +383,7 @@ static int ModeTitle(void)
 		bContinue = FALSE;
 
 	
-		ChangeMusic(MUS_CAVE_STORY);
+		ChangeMusic(MUS_PIZZADX);
 
 	// Reset cliprect, flags, and give the player the Nikumaru counter
 	grcGame.left = 0;

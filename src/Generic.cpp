@@ -48,10 +48,10 @@ void GetCompileDate(int *year, int *month, int *day)
 
 BOOL GetCompileVersion(int *v1, int *v2, int *v3, int *v4)
 {
-	*v1 = 1;
+	*v1 = 0;
 	*v2 = 0;
 	*v3 = 0;
-	*v4 = 6;
+	*v4 = 1;
 	return TRUE;
 }
 

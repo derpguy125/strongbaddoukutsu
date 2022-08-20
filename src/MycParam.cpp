@@ -155,7 +155,7 @@ void DamageMyChar(int damage)
 	if (gMC.equip & EQUIP_WHIMSICAL_STAR && gMC.star > 0)
 		gMC.star = (short)gMC.star - 1;	// For some reason, this does a cast to short. Might not be accurate to the original source code (possibly, Pixel was just being careful about int size/conversion, or this is from some weird macro)
 
-	// Lose experience
+	/* Lose EXP (useless)
 	if (gMC.equip & EQUIP_ARMS_BARRIER)
 		gArmsData[gSelectedArms].exp -= damage;
 	else
@@ -180,7 +180,7 @@ void DamageMyChar(int damage)
 			gArmsData[gSelectedArms].exp = 0;
 		}
 	}
-
+	*/
 	// Tell player how much damage was taken
 	SetValueView(&gMC.x, &gMC.y, -damage);
 
@@ -264,22 +264,22 @@ void PutArmsEnergy(BOOL flash)
 	// Draw max ammo
 	if (gArmsData[gSelectedArms].max_num)
 	{
-		PutNumber4(gArmsEnergyX + 32, 16, gArmsData[gSelectedArms].num, FALSE);
-		PutNumber4(gArmsEnergyX + 32, 24, gArmsData[gSelectedArms].max_num, FALSE);
+		PutNumber4(gArmsEnergyX + 32, 192, gArmsData[gSelectedArms].num, FALSE);
+		PutNumber4(gArmsEnergyX + 32, 200, gArmsData[gSelectedArms].max_num, FALSE);
 	}
 	else
 	{
-		PutBitmap3(&rcView, PixelToScreenCoord(gArmsEnergyX + 48), PixelToScreenCoord(16), &rcNone, SURFACE_ID_TEXT_BOX);
-		PutBitmap3(&rcView, PixelToScreenCoord(gArmsEnergyX + 48), PixelToScreenCoord(24), &rcNone, SURFACE_ID_TEXT_BOX);
+		PutBitmap3(&rcView, PixelToScreenCoord(gArmsEnergyX + 48), PixelToScreenCoord(192), &rcNone, SURFACE_ID_TEXT_BOX);
+		PutBitmap3(&rcView, PixelToScreenCoord(gArmsEnergyX + 48), PixelToScreenCoord(200), &rcNone, SURFACE_ID_TEXT_BOX);
 	}
 
 	// Draw experience and ammo
 	if (flash == TRUE && (gMC.shock / 2) % 2)
 		return;
 
-	PutBitmap3(&rcView, PixelToScreenCoord(gArmsEnergyX + 32), PixelToScreenCoord(24), &rcPer, SURFACE_ID_TEXT_BOX);
-	PutBitmap3(&rcView, PixelToScreenCoord(gArmsEnergyX), PixelToScreenCoord(32), &rcLv, SURFACE_ID_TEXT_BOX);
-	PutNumber4(gArmsEnergyX - 8, 32, gArmsData[gSelectedArms].level, FALSE);
+	PutBitmap3(&rcView, PixelToScreenCoord(gArmsEnergyX + 32), PixelToScreenCoord(200), &rcPer, SURFACE_ID_TEXT_BOX);
+	PutBitmap3(&rcView, PixelToScreenCoord(gArmsEnergyX + 32), PixelToScreenCoord(208), &rcLv, SURFACE_ID_TEXT_BOX);
+	PutNumber4(gArmsEnergyX + 32, 208, gArmsData[gSelectedArms].level, FALSE);
 
 	RECT rcExpBox = {0, 72, 40, 80};
 	RECT rcExpVal = {0, 80, 0, 88};
@@ -300,7 +300,7 @@ void PutArmsEnergy(BOOL flash)
 	int exp_now = gArmsData[gSelectedArms].exp;
 	int exp_next = gArmsLevelTable[arms_code].exp[lv];
 
-	PutBitmap3(&rcView, PixelToScreenCoord(gArmsEnergyX + 24), PixelToScreenCoord(32), &rcExpBox, SURFACE_ID_TEXT_BOX);
+	/*PutBitmap3(&rcView, PixelToScreenCoord(gArmsEnergyX + 24), PixelToScreenCoord(32), &rcExpBox, SURFACE_ID_TEXT_BOX);
 
 	if (lv == 2 && gArmsData[gSelectedArms].exp == gArmsLevelTable[arms_code].exp[lv])
 	{
@@ -318,13 +318,14 @@ void PutArmsEnergy(BOOL flash)
 
 	if (gMC.exp_wait && ((add_flash++ / 2) % 2))
 		PutBitmap3(&rcView, PixelToScreenCoord(gArmsEnergyX + 24), PixelToScreenCoord(32), &rcExpFlash, SURFACE_ID_TEXT_BOX);
+	*/
 }
 
 void PutActiveArmsList(void)
 {
 	int x;
 	int a;
-	RECT rect = {0, 0, 0, 16};
+	RECT rect = {0, 0, 0, 24};
 
 	int arms_num = 0;
 	while (gArmsData[arms_num].code != 0)
@@ -349,50 +350,52 @@ void PutActiveArmsList(void)
 			x -= 48;
 
 		// Draw icon
-		rect.left = gArmsData[a].code * 16;
-		rect.right = rect.left + 16;
-		PutBitmap3(&grcGame, PixelToScreenCoord(x), PixelToScreenCoord(16), &rect, SURFACE_ID_ARMS_IMAGE);
+		rect.left = gArmsData[a].code * 32;
+		rect.right = rect.left + 32;
+		PutBitmap3(&grcGame, PixelToScreenCoord(x), PixelToScreenCoord(192), &rect, SURFACE_ID_ARMS_IMAGE);
 	}
 }
 
 void PutMyLife(BOOL flash)
 {
-	RECT rcCase = {0, 40, 232, 48};
-	RECT rcLife = {0, 24, 232, 32};
-	RECT rcBr = {0, 32, 232, 40};
+	RECT rcLife[2] = {
+		{24, 40, 26, 48},
+		{26, 40, 28, 48},
+	};
+	RECT rcHPLabel = {0,40,24,48};
+	RECT rcSlash = {73,48,81,56};
 
 	if (flash == TRUE && gMC.shock / 2 % 2)
 		return;
 
-	if (gMC.lifeBr < gMC.life)
-		gMC.lifeBr = gMC.life;
-
-	if (gMC.lifeBr > gMC.life)
-	{
-		if (++gMC.lifeBr_count > 30)
-			--gMC.lifeBr;
-	}
-	else
-	{
-		gMC.lifeBr_count = 0;
-	}
-
+	
+	
+	//PutBitmap3(&grcGame, PixelToScreenCoord(16), PixelToScreenCoord(40), &rcCase, SURFACE_ID_TEXT_BOX);
+	//PutBitmap3(&grcGame, PixelToScreenCoord(40), PixelToScreenCoord(40), &rcBr, SURFACE_ID_TEXT_BOX);
+	//PutBitmap3(&grcGame, PixelToScreenCoord(40), PixelToScreenCoord(40), &rcLife, SURFACE_ID_TEXT_BOX);
+	// custom HP rendering
+	PutBitmap3(&grcGame, PixelToScreenCoord(8), PixelToScreenCoord(216), &rcHPLabel, SURFACE_ID_TEXT_BOX); // Draw HP Label
+	PutBitmap3(&grcGame, PixelToScreenCoord(48), PixelToScreenCoord(216), &rcSlash, SURFACE_ID_TEXT_BOX); // Draw Slash
+	PutNumber4(16, 216, gMC.life, FALSE); // Draw HP
+	PutNumber4(40, 216, gMC.max_life, FALSE); // Draw MAXHP
+	
 	// Draw bar
-	rcCase.right = 64;
-	rcLife.right = ((gMC.life * 40) / gMC.max_life) - 1;
-	rcBr.right = ((gMC.lifeBr * 40) / gMC.max_life) - 1;
-
-	PutBitmap3(&grcGame, PixelToScreenCoord(16), PixelToScreenCoord(40), &rcCase, SURFACE_ID_TEXT_BOX);
-	PutBitmap3(&grcGame, PixelToScreenCoord(40), PixelToScreenCoord(40), &rcBr, SURFACE_ID_TEXT_BOX);
-	PutBitmap3(&grcGame, PixelToScreenCoord(40), PixelToScreenCoord(40), &rcLife, SURFACE_ID_TEXT_BOX);
-	PutNumber4(8, 40, gMC.lifeBr, FALSE);
+	for (int i = 0; i < gMC.max_life; i++) {
+		PutBitmap3(
+			&grcGame, // Target
+			// On the next two lines TT7 forgot PixelToScreenCoord, which is needed for the PutBitmap to work on resolutions other than 1x 
+			PixelToScreenCoord(72 + (2 * i)), // X position, offset by 8 for every 1 in i
+			PixelToScreenCoord(216), // Y position,
+			& rcLife[gMC.life > i], // Which rect to use, 'gMC.life - 1 > i' checks if  the current heart that is being drawn is full or not, returns 0 if it's not and 1 if it is
+			SURFACE_ID_TEXT_BOX); // Surface
+	}
 }
 
 void PutCion()
 {
-	RECT rcCion = {208, 112, 226, 118};
-	PutBitmap3(&grcGame, PixelToScreenCoord(51), PixelToScreenCoord(218), &rcCion, SURFACE_ID_TEXT_BOX);
-	PutNumber4(17, 217, cion, FALSE);
+	RECT rcCion = {208, 112, 228, 120};
+	PutBitmap3(&grcGame, PixelToScreenCoord(56), PixelToScreenCoord(224), &rcCion, SURFACE_ID_TEXT_BOX);
+	PutNumber4(16, 224, cion, FALSE);
 }
 
 void PutMyAir(int x, int y)

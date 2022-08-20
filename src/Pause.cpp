@@ -1008,7 +1008,7 @@ static int Callback_Options(OptionsMenu *parent_menu, size_t this_option, Callba
 		{"Controls", Callback_ControlsController, NULL, NULL, 0, FALSE},
 	#endif
 
-		{"Soundtrack", Callback_Soundtrack, &conf, NULL, 0, FALSE},
+		//{"Soundtrack", Callback_Soundtrack, &conf, NULL, 0, FALSE},
 		{"Framerate", Callback_Framerate, &conf, NULL, 0, FALSE},
 
 	#if !defined(__WIIU__) && !defined(_3DS)

@@ -375,8 +375,8 @@ void PutCampObject(void)
 			break;	// Invalid weapon
 
 		// Get icon rect for next weapon
-		rcArms.left = (gArmsData[i].code % 16) * 16;
-		rcArms.right = rcArms.left + 16;
+		rcArms.left = (gArmsData[i].code % 32) * 32;
+		rcArms.right = rcArms.left + 32;
 		rcArms.top = ((gArmsData[i].code) / 16) * 16;
 		rcArms.bottom = rcArms.top + 16;
 

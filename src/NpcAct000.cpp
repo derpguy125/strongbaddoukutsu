@@ -1585,7 +1585,7 @@ void ActNpc016(NPCHAR *npc)
 			break;
 	}
 
-	if (++npc->ani_wait > 2)
+	if (++npc->ani_wait > 6)
 	{
 		npc->ani_wait = 0;
 		++npc->ani_no;
