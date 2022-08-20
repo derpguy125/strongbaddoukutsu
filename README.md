@@ -1,26 +1,6 @@
 [![Build Status](https://travis-ci.com/Clownacy/CSE2EX.svg?branch=portable)](https://travis-ci.com/Clownacy/CSE2EX)
 
-# CSE2EX
-
-CSE2EX is my personal build of CSE2, which features some enhancements:
-* Widescreen
-* Options menu:
-  * Control remapping (keyboard and gamepad)
-  * Soundtrack selection
-  * V-sync toggle
-  * 50FPS/60FPS toggle
-  * Option to disable the design choice that locks sprites to a 320x240 grid when drawn, making them move smoother
-* Bugfixes
-
-Supported platforms include...
-* Windows
-* Linux
-* macOS
-* Wii U
-* 3DS
-* RISC OS
-
-Some of the above features will be axed soon, as the project completes its transition from CSE2's old enhanced branch to my personal build.
+It's getting wacky in here
 
 ![Screenshot](images/screenshot.png)
 
