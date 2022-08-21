@@ -1457,11 +1457,14 @@ int TextScriptProc(void)
 					{
 						return enum_ESCRETURN_restart;
 					}
-					else if (IS_COMMAND('I', 'M', 'G')) {
+					else if (IS_COMMAND('I','M','G')) {
                         x = GetTextScriptNo(gTS.p_read + 4);
                         img = x;
-						if (img != 0)
-							ReloadImg(img);
+						if (img != 0) {
+							if (!ReloadImg(img)) {
+								img = 0;
+							}
+						}
                         gTS.p_read += 8;
                     }
 					else

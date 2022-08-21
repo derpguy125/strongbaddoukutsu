@@ -4,5 +4,5 @@
 
 #include "CommonDefines.h"
 
-void ReloadImg(int a);
+BOOL ReloadImg(int a);
 void PutImg(void);

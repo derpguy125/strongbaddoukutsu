@@ -44,10 +44,13 @@ void PutImg(void)
 }
 
 // Load illustration
-void ReloadImg(int a)
+BOOL ReloadImg(int a)
 {
 	char name[16];
 	sprintf(name, "Img%04d", a);
 	std::string path = std::string("Images/") + name;
-	ReloadBitmap_File(path.c_str(), SURFACE_ID_IMG_OVERLAYS);
+	if (!ReloadBitmap_File(path.c_str(), SURFACE_ID_IMG_OVERLAYS)) {
+		return FALSE;
+	} 
+	return TRUE;
 }
