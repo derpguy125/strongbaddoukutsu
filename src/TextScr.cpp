@@ -21,6 +21,7 @@
 #include "BossLife.h"
 #include "CommonDefines.h"
 #include "Draw.h"
+#include "Image.h"
 #include "Ending.h"
 #include "Escape.h"
 #include "Fade.h"
@@ -62,6 +63,7 @@ static unsigned long nod_color;
 
 unsigned int cion = 0;
 unsigned int gMIMCurrentNum = 0;
+int img = 0;
 
 // Initialize and end tsc
 BOOL InitTextScript2(void)
@@ -455,6 +457,12 @@ void PutTextScript(void)
 	RECT rect;
 	int text_offset;
 
+	// Draw IMG
+    if (img != 0) {
+		PutImg();
+	}
+
+
 	if (gTS.mode == 0)
 		return;
 
@@ -472,7 +480,7 @@ void PutTextScript(void)
 		gTS.rcText.top = WINDOW_HEIGHT - 56;
 		gTS.rcText.bottom = gTS.rcText.top + 48;
 	}
-
+	
 	// Draw textbox
 	if (gTS.flags & 2)
 	{
@@ -1449,6 +1457,13 @@ int TextScriptProc(void)
 					{
 						return enum_ESCRETURN_restart;
 					}
+					else if (IS_COMMAND('I', 'M', 'G')) {
+                        x = GetTextScriptNo(gTS.p_read + 4);
+                        img = x;
+						if (img != 0)
+							ReloadImg(img);
+                        gTS.p_read += 8;
+                    }
 					else
 					{
 						char str_0[0x40];
@@ -1461,6 +1476,7 @@ int TextScriptProc(void)
 					#endif
 						return enum_ESCRETURN_exit;
 					}
+					
 				}
 				else
 				{

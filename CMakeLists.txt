@@ -101,6 +101,8 @@ add_executable(CSE2 WIN32
 	"src/Generic.h"
 	"src/GenericLoad.cpp"
 	"src/GenericLoad.h"
+	"src/Image.cpp"
+	"src/Image.h"
 	"src/Input.cpp"
 	"src/Input.h"
 	"src/KeyControl.cpp"

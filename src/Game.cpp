@@ -30,6 +30,7 @@
 #include "Frame.h"
 #include "Generic.h"
 #include "GenericLoad.h"
+#include "Image.h"
 #include "KeyControl.h"
 #include "Main.h"
 #include "Map.h"
