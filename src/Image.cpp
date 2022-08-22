@@ -31,15 +31,15 @@
 #include "TextScr.h"
 
 // Draw illustration
-void PutImg(void)
+void PutImg(int x, int y)
 {
 	RECT rcIllust = {0, 0, 320, 240};
 #if WINDOW_WIDTH != 320 || WINDOW_HEIGHT != 240 // TODO - Move this to CSE2EX
 	// Widescreen edit
 	RECT rcClip = {(WINDOW_WIDTH - 320) / 2, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
-	PutBitmap3(&rcClip, SubpixelToScreenCoord(0) + PixelToScreenCoord((WINDOW_WIDTH - 320) / 2), PixelToScreenCoord((WINDOW_HEIGHT - 240) / 2), &rcIllust, SURFACE_ID_IMG_OVERLAYS);
+	PutBitmap3(&rcClip, (SubpixelToScreenCoord(0) + PixelToScreenCoord((WINDOW_WIDTH - 320) / 2)) + (x - 320), (PixelToScreenCoord((WINDOW_HEIGHT - 240) / 2)) + (y - 240), &rcIllust, SURFACE_ID_IMG_OVERLAYS);
 #else
-	PutBitmap3(&grcFull, SubpixelToScreenCoord(0) + PixelToScreenCoord((WINDOW_WIDTH - 320) / 2), PixelToScreenCoord((WINDOW_HEIGHT - 240) / 2), &rcIllust, SURFACE_ID_IMG_OVERLAYS);
+	PutBitmap3(&grcFull, (SubpixelToScreenCoord(0) + PixelToScreenCoord((WINDOW_WIDTH - 320) / 2)) + (x - 320), (PixelToScreenCoord((WINDOW_HEIGHT - 240) / 2)) + (y - 240), &rcIllust, SURFACE_ID_IMG_OVERLAYS);
 #endif
 }
 

@@ -319,7 +319,7 @@ BOOL InitializeGame(void)
 	ClearPermitStage();
 	StartMapping();
 	InitFlags();
-	if (!TransferStage(0, 200, 10, 7))
+	if (!TransferStage(1, 200, 0, 1))
 	{
 	#if !defined(JAPANESE) && defined(FIX_BUGS) // The Aeon Genesis translation didn't translate this
 		Backend_ShowMessageBox("Error", "Failed to load stage");

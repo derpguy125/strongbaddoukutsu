@@ -5,4 +5,4 @@
 #include "CommonDefines.h"
 
 BOOL ReloadImg(int a);
-void PutImg(void);
+void PutImg(int x, int y);

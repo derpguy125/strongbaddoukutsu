@@ -63,7 +63,10 @@ static unsigned long nod_color;
 
 unsigned int cion = 0;
 unsigned int gMIMCurrentNum = 0;
+// image vars
 int img = 0;
+int imgX = 320;
+int imgY = 240;
 
 // Initialize and end tsc
 BOOL InitTextScript2(void)
@@ -459,7 +462,7 @@ void PutTextScript(void)
 
 	// Draw IMG
     if (img != 0) {
-		PutImg();
+		PutImg(imgX,imgY);
 	}
 
 
@@ -1467,6 +1470,15 @@ int TextScriptProc(void)
 						}
                         gTS.p_read += 8;
                     }
+					else if (IS_COMMAND('I','X','Y')) {
+						x = GetTextScriptNo(gTS.p_read + 4);
+						y = GetTextScriptNo(gTS.p_read + 9);
+						
+						imgX = x;
+						imgY = y;
+						
+						gTS.p_read += 13;
+					}
 					else
 					{
 						char str_0[0x40];

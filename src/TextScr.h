@@ -56,6 +56,8 @@ typedef struct TEXT_SCRIPT
 	RECT rcText;
 	
 	int img;
+	int imgX;
+	int imgY;
 
 	// ..?
 	int offsetY;
