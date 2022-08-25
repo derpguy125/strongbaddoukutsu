@@ -15,8 +15,9 @@
 #include "Draw.h"
 #include "Game.h"
 #include "Triangle.h"
+#include "Map.h"
 
-#define CARET_MAX 0x40
+#define CARET_MAX 0x43
 
 struct CARET
 {
@@ -33,6 +34,8 @@ struct CARET
 	int ani_wait;
 	int view_left;
 	int view_top;
+	int count1;
+	int count2;
 	RECT rect;
 };
 
@@ -63,7 +66,13 @@ CARET_TABLE gCaretTable[] = {
 	{20 * 0x200, 20 * 0x200}, // CARET_UNKNOWN
 	{ 4 * 0x200,  4 * 0x200}, // CARET_PROJECTILE_DISSIPATION_TINY
 	{20 * 0x200,  4 * 0x200}, // CARET_EMPTY
-	{52 * 0x200,  4 * 0x200}  // CARET_PUSH_JUMP_KEY
+	{52 * 0x200,  4 * 0x200},  // CARET_PUSH_JUMP_KEY
+	{0x1000, 0x1000},
+	{0x1000, 0x1000},
+	{0x1000, 0x1000},
+	{ 4 * 0x200,  4 * 0x200}, // CARET_CION1
+	{ 4 * 0x200,  4 * 0x200}, // CARET_CION3
+	{ 4 * 0x200,  4 * 0x200}, // CARET_CION8
 };
 
 void InitCaret(void)
@@ -607,6 +616,190 @@ void ActCaret17(CARET *crt)
 		crt->rect = rcLeft[1];
 }
 
+void ActCaret18(CARET* crt)
+{
+	RECT rcLeft[7] = {
+		{0, 153, 16, 169},
+		{16, 153, 32, 169},
+		{32, 153, 48, 169},
+		{48, 153, 64, 169},
+		{64, 153, 80, 169},
+		{80, 153, 96, 169},
+		{96, 153, 112, 169}
+	};
+
+	switch (crt->act_no)
+	{
+	case 0:
+		crt->ym = Random(-0x500, 0x500);
+		crt->xm = Random(-0x500, 0x500);
+		crt->act_no = 1;
+	case 1:
+		crt->ym += 0x20;
+		crt->rect = rcLeft[crt->ani_no];
+		
+		break;
+	}
+
+	crt->x += crt->xm;
+	crt->y += crt->ym;
+
+	//crt->rect = rcLeft[0];
+	crt->rect = rcLeft[crt->ani_no];
+	if (++crt->ani_wait > 6) // Animation counter, how many frames until we advance to next frame
+	{
+		crt->ani_wait = 0; // Reset counter
+		++crt->ani_no; // Increase animation frame by one
+	}
+	if (crt->ani_no > 6)
+	{
+		crt->cond = 0;
+		return;
+	}
+}
+
+void ActCaret19(CARET* crt)
+{
+	RECT rect[4] = {
+		{112, 32, 128, 48},
+		{128, 32, 144, 48},
+		{144, 32, 160, 48},
+		{160, 32, 176, 48},
+	};
+
+	if (++crt->ani_wait > 2)
+	{
+		crt->ani_wait = 0;
+
+		if (++crt->ani_no > 3)
+		{
+			crt->cond = 0;
+#ifdef FIX_BUGS
+			return;	// The code below will use 'ani_no' to access 'rect', even though it's now too high
+#endif
+		}
+	}
+
+	crt->rect = rect[crt->ani_no];
+}
+
+void ActCaret20(CARET* crt) // Splash caret
+{
+	RECT rect[4] = {
+		{0, 65, 8, 72},
+		{8, 65, 16, 72},
+		{16, 65, 24, 72},
+		{24, 65, 32, 72},
+
+	};
+	//crt->ym += 0x20;
+	//crt->ani_no = Random(0, 4);
+	crt->rect = rect[crt->ani_no];
+	if (++crt->ani_wait > 6) // Animation counter, how many frames until we advance to next frame
+	{
+		crt->ani_wait = 0; // Reset counter
+		++crt->ani_no; // Increase animation frame by one
+	}
+	if (crt->ani_no > 3)
+	{
+		crt->ani_no = 3;
+		crt->cond = 0;
+	}
+
+	switch (crt->act_no)
+	{
+	case 0:
+		crt->ym = Random(-0x200, 0x80);
+		crt->xm = Random(-0x200, 0x200);
+		crt->act_no = 1;
+	case 1:
+		crt->ym += 0x20;
+		crt->rect = rect[crt->ani_no];
+		
+		break;
+	}
+
+	if (crt->ym > 0x5FF)
+		crt->ym = 0x5FF;
+	crt->x += crt->xm;
+	crt->y += crt->ym;
+    
+	crt->rect = rect[crt->ani_no];
+
+	if (crt->direct == 2)
+	{
+		crt->rect.top += 2;
+		crt->rect.bottom += 2;
+	}
+
+	/*if (++crt->act_wait > 10)
+	{
+		if (crt->flag & 1)
+			crt->cond = 0;
+		if (crt->flag & 4)
+			crt->cond = 0;
+		if (crt->flag & 8)
+			crt->cond = 0;
+		if (crt->flag & 0x100)
+			crt->cond = 0;
+	}*/
+
+	if (crt->y > gMap.length * 0x200 * 0x10)
+		crt->cond = 0;
+}
+void ActCaret21(CARET* crt)
+{
+	RECT rect[1] = {
+		{128, 120, 136, 128},
+	};
+
+	if (++crt->count1 > 30)
+		crt->cond = 0;
+
+	if (crt->count1 < 3)
+		crt->ym = -8 * 0x200;
+	else
+		crt->ym = 0;
+
+	crt->y += crt->ym;
+	crt->rect = rect[crt->ani_no];
+}
+// I FUCKING HATE THIS
+void ActCaret22(CARET* crt)
+{
+	RECT rect[1] = {
+		{136, 120, 144, 128},
+	};
+
+	if (++crt->count1 > 30)
+		crt->cond = 0;
+
+	if (crt->count1 < 3)
+		crt->ym = -8 * 0x200;
+	else
+		crt->ym = 0;
+
+	crt->y += crt->ym;
+	crt->rect = rect[crt->ani_no];
+}
+void ActCaret23(CARET* crt)
+{
+	RECT rect[1] = {
+		{144, 120, 152, 128},
+	};
+
+	if (++crt->count1 > 30)
+		crt->cond = 0;
+
+	if (crt->count1 < 3)
+		crt->ym = -8 * 0x200;
+	else
+		crt->ym = 0;
+
+	crt->y += crt->ym;
+	crt->rect = rect[crt->ani_no];
+}
+
 typedef void (*CARETFUNCTION)(CARET*);
 CARETFUNCTION gpCaretFuncTbl[] =
 {
@@ -627,7 +820,13 @@ CARETFUNCTION gpCaretFuncTbl[] =
 	ActCaret14,
 	ActCaret15,
 	ActCaret16,
-	ActCaret17
+	ActCaret17,
+	ActCaret18,
+	ActCaret19,
+	ActCaret20,
+	ActCaret21,
+	ActCaret22,
+	ActCaret23,
 };
 
 void ActCaret(void)

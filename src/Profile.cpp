@@ -131,6 +131,7 @@ BOOL SaveProfile(const char *name)
 	fwrite(profile.permit_mapping, 0x80, 1, fp);
 	fwrite(FLAG, 4, 1, fp);
 	fwrite(profile.flags, 1000, 1, fp);
+	File_WriteLE32(profile.cion, fp);
 	// Custom
 	fwrite(gProfileCodeExtra, 0x10, 1, fp);
 	File_WriteLE32(profile.MIMCurrentNum, fp);
@@ -219,6 +220,7 @@ BOOL LoadProfile(const char *name)
 	fread(profile.permit_mapping, 0x80, 1, fp);
 	fread(profile.FLAG, 4, 1, fp);
 	fread(profile.flags, 1000, 1, fp);
+	profile.cion = File_ReadLE32(fp);
 
 	// Custom
 	fread(profile.extra_code, 0x10, 1, fp);
