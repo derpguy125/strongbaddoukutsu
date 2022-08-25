@@ -568,11 +568,11 @@ void PutTextScript(void)
 
 		if (gTS.item < 1000)
 		{
-			rect.left = (gTS.item % 16) * 16;
-			rect.right = rect.left + 16;
+			rect.left = (gTS.item % 32) * 32;
+			rect.right = rect.left + 32;
 			rect.top = (gTS.item / 16) * 16;
 			rect.bottom = rect.top + 16;
-			PutBitmap3(&grcFull, PixelToScreenCoord((WINDOW_WIDTH / 2) - 12), PixelToScreenCoord(gTS.item_y), &rect, SURFACE_ID_ARMS_IMAGE);
+			PutBitmap3(&grcFull, PixelToScreenCoord((WINDOW_WIDTH / 2) - 16), PixelToScreenCoord(gTS.item_y), &rect, SURFACE_ID_ARMS_IMAGE);
 		}
 		else
 		{

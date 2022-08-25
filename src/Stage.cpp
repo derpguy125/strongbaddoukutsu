@@ -322,12 +322,13 @@ typedef struct MusicListEntry
 	bool loop;	// Only applicable to non-Organya songs
 } MusicListEntry;
 
-static const MusicListEntry music_table_main[5] = {
+static const MusicListEntry music_table_main[6] = {
 	{NULL, NULL, MUSIC_TYPE_OTHER, true},
 	{"Resource/MUSIC/pizzadx.ogg", NULL, MUSIC_TYPE_OTHER, true},
 	{"Resource/MUSIC/videlectrix.ogg", NULL, MUSIC_TYPE_OTHER, false},
 	{"Resource/MUSIC/gameover.ogg", NULL, MUSIC_TYPE_OTHER, false},
-	{"Resource/MUSIC/fzshoptheme.ogg", NULL, MUSIC_TYPE_OTHER, true},
+	{"Resource/MUSIC/fzshopintro.ogg", "Resource/MUSIC/fzshoptheme.ogg", MUSIC_TYPE_OTHER, true},
+	{"Resource/MUSIC/gest_intro.ogg", "Resource/MUSIC/gest_loop.ogg", MUSIC_TYPE_OTHER, true},
 	
 };
 
