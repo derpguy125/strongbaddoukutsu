@@ -6,20 +6,19 @@
 
 #0400
 <FLJ0021:0410<FL+0021<KEY<MSG<FAC0030Woah! It's...<WAI0030 it's a-<WAI0050
-<FAC0031It's a chest.<NOD <SOU0022<CNP0002:0021:0000<FAC0032Hey, what's this
-inside the chest?<NOD<FAC0000<CLR
-<SOU0038<GIT0002Found the =Polar Star=!<NOD<CLR
-<GIT0000<FAC0030Woah! It's a gun! Awesome!!<NOD
-<FAC0032...There's something else in
-here...?<NOD<FAC0000<CLR<TURIf you can read this, then you 
+<FAC0031It's a chest.<NOD <SOU0022<CNP0002:0021:0000<FAC0032Hey, what's
+this inside the chest?<NOD<FAC0000<CLR
+<AM+0002:0200<CMU0006<GIT0002Found the =Polar Star=!<WAI0160<NOD<CLR
+<GIT0000<RMU<FAC0030Woah! It's a gun! Awesome!!<NOD
+<FAC0032...There's something else
+in here...?<NOD<FAC0000<CLR<TURIf you can read this, then you 
 stole my gun. I mean I wasn't gonna
-use it, so go ahead I guess.<NOD<CLR
-You're obviously powerless against
+use it, so go ahead I guess.<NOD<CLRYou're obviously powerless against
 the monsters in this cave, so like,
 you need all the help you can get.<NOD<CLO
 <MSG<FAC0031
 Passive agressive chest.
-Always nice to see.<NOD<AM+0002:0200<END
+Always nice to see.<NOD<END
 
 #0410
 <KEY<MSG
