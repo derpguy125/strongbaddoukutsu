@@ -5,6 +5,8 @@
 <KEY<FAO0001<TRA0000:0200:0007:0003
 #0310
 <KEY<FAO0001<TRA0003:0200:0017:0011
+#0320
+<KEY<FAO0001<TRA0004:0200:0002:0011
 
 #0400
 <KEY<MSG<FLJ0020:0410<FLJ0023:0401<FL+0023<FAC0042
@@ -19,14 +21,14 @@ get a lot of 'em.<NOD<CLR<FAC0031
 .<WAI0010.<WAI0010.<WAI0010why?<NOD<CLR<FAC0042'Coz! You wanna buy
 stuff don'tcha?<NOD Great! I
 got's somethin' ya probably
-want here.<NOD I'll give ya this
+want here.<NOD I'll give ya dis
 <GIT1006=Life Capsule= if ya
-give me 5 Cion. Capiche?<YNJ0402<CIJ0005:0403<EVE0404
+give me 5 CION. Capiche?<YNJ0402<CIJ0005:0403<EVE0404
 
 #0401
-<MSG<FAC0042So, I'll give ya this
+<MSG<FAC0042So, I'll give ya dis
 <GIT1006=Life Capsule= if ya
-give me 5 Cion. Capiche?<YNJ0402<CIJ0005:0403<EVE0404
+give me 5 CION. Capiche?<YNJ0402<CIJ0005:0403<EVE0404
 
 #0402
 <MSG<GIT0000<FAC0042<CLR
@@ -34,17 +36,17 @@ Aighty then, have fun with
 your 3 HP.<NOD<END
 
 #0403
-<MSG<FL+0020<FAC0042Aight, lemme see that
+<MSG<FL+0020<GIT0000<FAC0042Aight, lemme see that
 money now...<NOD
 <CI-0005<FAC0000<CLR
 <GIT1006<CMU0006Exchanged 5 CION for a
-=Life Capsule=.<WAI0160<NOD<RM
+=Life Capsule=.<WAI0160<NOD<RMU
 HP increased by 3.<NOD<CLR<FAC0042
 Pleasure doin' business
 witcha, Stro-Bro.<NOD Hey,
 if you see me around,
 I can get you better stuff!<NOD
-See ya!<NOD<END
+See ya!<ML+0003<NOD<END
 
 #0404
 <MSG<GIT0000<FAC0042
@@ -52,7 +54,7 @@ Uh, sorry to be a bother,
 but...<NOD ya don't got
 enough CION.<NOD Go kill
 some bats and come back
-with the 3 CION.<NOD<END
+with the CION.<NOD<END
 
 #0410
 <MSG<FAC0042You already gots your

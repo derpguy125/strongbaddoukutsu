@@ -21,6 +21,10 @@ typedef enum MusicID
 	MUS_SHOP2 = 0x7,
 	MUS_BOSS = 0x8,
 	MUS_BOSS2 = 0x9,
+	MUS_CLEAR = 0xA,
+	MUS_CHOLACORAY = 0xB,
+	MUS_SAARI = 0xC,
+	MUS_PROME = 0xD,
 } MusicID;
 
 typedef struct STAGE_TABLE
